@@ -27,7 +27,7 @@ namespace KY_MES.Application.Utils
             return new OkToStartRequestModel
             {
                 WipId = getWip.WipId,
-                ResourceName = spi.Inspection.Machine
+                ResourceName = spi.Inspection.Machine + "-" + spi.Inspection.Side.Substring(0,2),
             };
         }
 
@@ -37,7 +37,7 @@ namespace KY_MES.Application.Utils
             {
                 WipId = getWip.WipId,
                 SerialNumber = spi.Inspection.Barcode,
-                ResourceName = spi.Inspection.Machine,
+                ResourceName = spi.Inspection.Machine + "-" + spi.Inspection.Side.Substring(0,2),
                 StartDateTimeString = ""
             };
         }
