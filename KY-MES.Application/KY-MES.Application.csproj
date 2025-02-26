@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <RootNamespace>KY_MES.Application</RootNamespace>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\KY-MES.Domain\KY-MES.Domain.csproj" />
+    <ProjectReference Include="..\KY-MES.Services\KY-MES.Services.csproj" />
+  </ItemGroup>
+
+</Project>

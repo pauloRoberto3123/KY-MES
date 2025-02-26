@@ -1,0 +1,6 @@
+@KY_MES_HostAddress = http://localhost:5196
+
+GET {{KY_MES_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
