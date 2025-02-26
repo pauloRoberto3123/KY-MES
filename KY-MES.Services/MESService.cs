@@ -14,7 +14,8 @@ namespace KY_MES.Services
 {
     public class MESService : IMESService
     {
-        public static string MesBaseUrl = Environment.GetEnvironmentVariable("MES_BASE_URL");
+        //public static string MesBaseUrl = Environment.GetEnvironmentVariable("MES_BASE_URL");
+        public static string MesBaseUrl = "https://man-prd.jemsms.corp.jabil.org/";
         private readonly CookieContainer _cookieContainer;
         private readonly HttpClientHandler _handler;
         private readonly HttpClient _client;
