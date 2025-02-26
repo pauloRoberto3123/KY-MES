@@ -52,7 +52,11 @@ namespace KY_MES.Services
                 var responseBody = await response.Content.ReadAsStringAsync();
 
                 //Add token to the cookie container
-                _cookieContainer.Add(new Uri(MesBaseUrl), new Cookie("UserToken", responseBody.Split('=')[1]));
+                _cookieContainer.Add(new Uri(MesBaseUrl), new Cookie("UserToken", responseBody.Split('=')[1]){
+                { 
+                    Path = "/", // Ensures the cookie is used globally on the domain
+                    Expires = DateTime.UtcNow.AddHours(1) // Set expiration if needed
+                });
             }
             catch (Exception ex)
             {
