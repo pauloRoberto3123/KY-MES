@@ -5,6 +5,8 @@ using System.Net;
 
 namespace KY_MES.Controllers
 {
+    [ApiController]
+    [Route("api")]
     public class KY_MESController : ControllerBase
     {
         private readonly IKY_MESApplication _application;
@@ -18,11 +20,17 @@ namespace KY_MES.Controllers
         {
             try
             {
-                return Ok();
+                var response = await _application.SPISendWipData(sPIInput);
+                return Ok(new
+                {
+                    Result = response,
+                    Success = true,
+                    Code = 200
+                });
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest("Error while sending SPI data to MES: " + ex.Message);
             }
         }
     }
