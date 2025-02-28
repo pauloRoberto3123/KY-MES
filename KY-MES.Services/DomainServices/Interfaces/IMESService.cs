@@ -14,6 +14,7 @@ namespace KY_MES.Services.DomainServices.Interfaces
         Task<GetWipIdBySerialNumberResponseModels> GetWipIdBySerialNumberAsync(GetWipIdBySerialNumberRequestModel getWipIdRequestModel);
         Task<OkToStartResponseModel> OkToStartAsync(OkToStartRequestModel okToStartRequestModel);
         Task<StartWipResponseModel> StartWipAsync(StartWipRequestModel startWipRequestModel);
-        Task<CompleteWipResponseModel> CompleteWipAsync(CompleteWipRequestModel completWipRequestModel, string WipId);
+        Task<CompleteWipResponseModel> CompleteWipFailAsync(CompleteWipFailRequestModel completWipRequestModel, string WipId);
+        Task<CompleteWipResponseModel> CompleteWipPassAsync(CompleteWipPassRequestModel completWipRequestModel, string WipId);
     }
 }

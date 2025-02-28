@@ -117,7 +117,7 @@ namespace KY_MES.Services
                 throw new Exception($"Erro ao executar StartWip. Mensagem: {ex.Message}");
             }
         }
-        public async Task<CompleteWipResponseModel> CompleteWipAsync(CompleteWipRequestModel completWipRequestModel, string WipId)
+        public async Task<CompleteWipResponseModel> CompleteWipFailAsync(CompleteWipFailRequestModel completWipRequestModel, string WipId)
         {
             try
             {
@@ -135,7 +135,29 @@ namespace KY_MES.Services
             }
             catch (Exception ex)
             {
-                throw new Exception($"Erro ao executar CompleteWip. Mensagem: {ex.Message}");
+                throw new Exception($"Erro ao executar CompleteWipFail. Mensagem: {ex.Message}");
+            }
+        }
+
+        public async Task<CompleteWipResponseModel> CompleteWipPassAsync(CompleteWipPassRequestModel completWipRequestModel, string WipId)
+        {
+            try
+            {
+                var completeWipUrl = $"{MesBaseUrl}api-external-api/api/Wips/{WipId}/complete";
+
+                var jsonContent = JsonConvert.SerializeObject(completWipRequestModel);
+                var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+
+                var response = await _client.PostAsync(completeWipUrl, content);
+                response.EnsureSuccessStatusCode();
+
+                var responseBody = await response.Content.ReadAsStringAsync();
+                var responseModel = JsonConvert.DeserializeObject<CompleteWipResponseModel>(responseBody);
+                return responseModel;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Erro ao executar CompleteWipPass. Mensagem: {ex.Message}");
             }
         }
     }

@@ -46,7 +46,11 @@ namespace KY_MES.Controllers
                 throw new Exception("start Wip failed");
             }
 
-            var completeWipResponse = await _mESService.CompleteWipAsync(utils.ToCompleteWip(sPIInput, getWipResponse), getWipResponse.WipId.ToString());
+            var completeWipResponse = sPIInput.Inspection.Result.Contains("NG")
+                ? await _mESService.CompleteWipFailAsync(utils.ToCompleteWipFail(sPIInput, getWipResponse), getWipResponse.WipId.ToString())
+                : await _mESService.CompleteWipPassAsync(utils.ToCompleteWipPass(sPIInput, getWipResponse), getWipResponse.WipId.ToString());
+
+
             if (completeWipResponse.Equals(null))
             {
                 return HttpStatusCode.BadRequest;

@@ -42,46 +42,57 @@ namespace KY_MES.Application.Utils
             };
         }
 
-        public CompleteWipRequestModel ToCompleteWip(SPIInputModel spi, GetWipIdBySerialNumberResponseModels getWip)
+        public CompleteWipFailRequestModel ToCompleteWipFail(SPIInputModel spi, GetWipIdBySerialNumberResponseModels getWip)
         {
-            if (!string.IsNullOrEmpty(spi.Inspection.Result) && spi.Inspection.Result != "NG")
-                return new CompleteWipRequestModel
-                {
-                    SerialNumber = spi.Inspection.Barcode,
-                };
-            else
+            
+            List<Failure> failures = [];
+            List<PanelFailureLabelList> panelFailureLabels = [];
+
+            foreach(var board in spi.Board)
             {
-                List<FailureLabelList> failureLabels = [];
-                List<PanelFailureLabelList> panelFailureLabels = [];
-                List<Failure> failures = [];
-
-                failureLabels.Add(new FailureLabelList
+                if (board.Result.Contains("NG"))
                 {
-                    SymptomLabel = spi.Board[0].Defects[0].Review,
-                    FailureMessage = ""
-                });
+                    List<FailureLabelList> failureLabels = [];
+                    foreach(var defect in board.Defects)
+                    {
+                        failureLabels.Add(new FailureLabelList
+                        {
+                            SymptomLabel = spi.Board[0].Defects[0].Review,
+                            FailureMessage = spi.Board[0].Defects[0].Review
+                        });
+                    }
+                    var matchingWipId = (from panelWips in getWip.Panel.PanelWips where board.Barcode == panelWips.SerialNumber
+                                         select panelWips.WipId).FirstOrDefault().GetValueOrDefault();
 
-                panelFailureLabels.Add(new PanelFailureLabelList
-                {
-                    WipId = getWip.WipId,
-                    FailureLabelList = failureLabels,
-                    FailureDateTime = null
-                });
-
-                failures.Add(new Failure
-                {
-                    SymptomLabel = spi.Board[0].Defects[0].Review,
-                    FailureMessage = spi.Board[0].Defects[0].Review,
-                    PanelFailureLabelList = panelFailureLabels,
-                });
-
-                return new CompleteWipRequestModel
-                {
-                    IsSingleWipMode = false,
-                    Failures = failures
-                };
+                    panelFailureLabels.Add(new PanelFailureLabelList
+                    {
+                        WipId = matchingWipId,
+                        FailureLabelList = failureLabels,
+                        FailureDateTime = null
+                    });
+                }
             }
-                
+
+            failures.Add(new Failure
+            {
+                SymptomLabel = spi.Board[0].Defects[0].Review,
+                FailureMessage = spi.Board[0].Defects[0].Review,
+                PanelFailureLabelList = panelFailureLabels,
+            });
+
+            return new CompleteWipFailRequestModel
+            {
+                IsSingleWipMode = false,
+                Failures = failures
+            };
+        }
+
+        public CompleteWipPassRequestModel ToCompleteWipPass(SPIInputModel spi, GetWipIdBySerialNumberResponseModels getWip)
+        {
+            return new CompleteWipPassRequestModel
+            {
+                SerialNumber = spi.Inspection.Barcode
+            };
         }
     }
 }

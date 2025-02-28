@@ -7,9 +7,8 @@ using System.Threading.Tasks;
 
 namespace KY_MES.Domain.V1.DTOs.OutputModels
 {
-    public class CompleteWipRequestModel
+    public class CompleteWipFailRequestModel
     {
-        public string? SerialNumber { get; set; }
         [JsonProperty("isSingleWipMode")]
         public bool IsSingleWipMode { get; set; }
 
