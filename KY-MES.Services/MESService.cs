@@ -14,8 +14,7 @@ namespace KY_MES.Services
 {
     public class MESService : IMESService
     {
-        //public static string MesBaseUrl = Environment.GetEnvironmentVariable("MES_BASE_URL");
-        public static string MesBaseUrl = "https://man-prd.jemsms.corp.jabil.org/";
+        public static string MesBaseUrl = Environment.GetEnvironmentVariable("MES_BASE_URL");
         private readonly CookieContainer _cookieContainer;
         private readonly HttpClientHandler _handler;
         private readonly HttpClient _client;
@@ -71,7 +70,7 @@ namespace KY_MES.Services
                 response.EnsureSuccessStatusCode();
 
                 var responseBody = await response.Content.ReadAsStringAsync();
-                var responseModel = JsonConvert.DeserializeObject<GetWipIdBySerialNumberResponseModels>(responseBody);
+                var responseModel = JsonConvert.DeserializeObject<List<GetWipIdBySerialNumberResponseModels>>(responseBody)[0];
                 return responseModel;
             }
             catch (Exception ex) { throw new Exception($"Erro ao coletar o WipId. Mensagem: {ex.Message}"); }
