@@ -27,7 +27,7 @@ namespace KY_MES.Application.Utils
             return new OkToStartRequestModel
             {
                 WipId = getWip.WipId,
-                ResourceName = spi.Inspection.Machine + "-" + spi.Inspection.Side.Substring(0,2),
+                ResourceName = spi.Inspection.Machine,
             };
         }
 
@@ -37,7 +37,7 @@ namespace KY_MES.Application.Utils
             {
                 WipId = getWip.WipId,
                 SerialNumber = spi.Inspection.Barcode,
-                ResourceName = spi.Inspection.Machine + "-" + spi.Inspection.Side.Substring(0,2),
+                ResourceName = spi.Inspection.Machine,
                 StartDateTimeString = ""
             };
         }
@@ -57,7 +57,7 @@ namespace KY_MES.Application.Utils
 
                 failureLabels.Add(new FailureLabelList
                 {
-                    SymptomLabel = spi.Board[0].Defects[0].DefectDescription,
+                    SymptomLabel = spi.Board[0].Defects[0].Review,
                     FailureMessage = ""
                 });
 
@@ -70,8 +70,8 @@ namespace KY_MES.Application.Utils
 
                 failures.Add(new Failure
                 {
-                    SymptomLabel = spi.Board[0].Defects[0].DefectDescription,
-                    FailureMessage = spi.Board[0].Defects[0].DefectDescription,
+                    SymptomLabel = spi.Board[0].Defects[0].Review,
+                    FailureMessage = spi.Board[0].Defects[0].Review,
                     PanelFailureLabelList = panelFailureLabels,
                 });
 
