@@ -14,14 +14,13 @@ namespace KY_MES.Controllers
         public KY_MESApplication(IMESService mESService)
         {
             _mESService = mESService;
+            utils = new Utils();
         }
 
         public async Task<HttpStatusCode> SPISendWipData(SPIInputModel sPIInput)
         {
             var username = Environment.GetEnvironmentVariable("Username");
             var password = Environment.GetEnvironmentVariable("Password");
-            //var username = "3317917";
-            //var password = "#Brasilhuehue1";
 
             await _mESService.SignInAsync(utils.SignInRequest(username, password));
 
