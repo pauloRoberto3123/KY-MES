@@ -23,7 +23,7 @@ namespace KY_MES.Controllers
                 var response = await _application.SPISendWipData(sPIInput);
                 return Ok(new
                 {
-                    Result = response,
+                    Result = "OK",
                     Success = true,
                     Code = 200
                 });
