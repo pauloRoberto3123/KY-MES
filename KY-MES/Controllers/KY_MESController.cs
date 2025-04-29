@@ -1,5 +1,6 @@
 ﻿using KY_MES.Domain.V1.DTOs.InputModels;
 using KY_MES.Domain.V1.Interfaces;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
@@ -7,6 +8,7 @@ namespace KY_MES.Controllers
 {
     [ApiController]
     [Route("api")]
+    [EnableCors("AllowAllOrigins")]
     public class KY_MESController : ControllerBase
     {
         private readonly IKY_MESApplication _application;
