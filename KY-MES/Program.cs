@@ -27,6 +27,7 @@ builder.Services.AddScoped<IKY_MESApplication, KY_MESApplication>();
 
 var app = builder.Build();
 
+app.UseCors();
 app.UseSwagger();
 app.UseSwaggerUI();
 
