@@ -83,8 +83,8 @@ namespace KY_MES.Application.Utils
 
             failures.Add(new Failure
             {
-                SymptomLabel = spi.Board[0].Defects[0].Review,
-                FailureMessage = spi.Board[0].Defects[0].Review,
+                SymptomLabel = panelFailureLabels.FirstOrDefault().FailureLabelList.FirstOrDefault().SymptomLabel,
+                FailureMessage = panelFailureLabels.FirstOrDefault().FailureLabelList.FirstOrDefault().FailureMessage,
                 PanelFailureLabelList = panelFailureLabels,
             });
 
