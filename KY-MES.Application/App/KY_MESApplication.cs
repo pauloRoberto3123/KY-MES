@@ -25,6 +25,7 @@ namespace KY_MES.Controllers
             await _mESService.SignInAsync(utils.SignInRequest(username, password));
 
             var getWipResponse = await _mESService.GetWipIdBySerialNumberAsync(utils.SpiToGetWip(sPIInput));
+
             if (getWipResponse.WipId == null)
             {
                 return HttpStatusCode.BadRequest;

@@ -52,16 +52,24 @@ namespace KY_MES.Application.Utils
             {
                 if (board.Result.Contains("NG"))
                 {
-                    List<FailureLabelList> failureLabels = [];
-                    foreach(var defect in board.Defects)
+                    List<FailureLabelList> failureLabels = new List<FailureLabelList>();
+                    HashSet<string> existingLabels = new HashSet<string>();
+
+                    foreach (var defect in board.Defects)
                     {
-                        failureLabels.Add(new FailureLabelList
+                        if (!existingLabels.Contains(defect.Review))
                         {
-                            SymptomLabel = spi.Board[0].Defects[0].Review,
-                            FailureMessage = spi.Board[0].Defects[0].Review
-                        });
+                            failureLabels.Add(new FailureLabelList
+                            {
+                                SymptomLabel = defect.Review,
+                                FailureMessage = defect.Review
+                            });
+                            existingLabels.Add(defect.Review);
+                        }
                     }
-                    var matchingWipId = (from panelWips in getWip.Panel.PanelWips where board.Barcode == panelWips.SerialNumber
+                    var matchingWipId = (from panelWips 
+                                         in getWip.Panel.PanelWips 
+                                         where board.Array == panelWips.PanelPosition
                                          select panelWips.WipId).FirstOrDefault().GetValueOrDefault();
 
                     panelFailureLabels.Add(new PanelFailureLabelList
