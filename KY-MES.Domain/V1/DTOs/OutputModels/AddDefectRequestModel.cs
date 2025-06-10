@@ -1,0 +1,35 @@
+﻿using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace KY_MES.Domain.V1.DTOs.OutputModels
+{
+    public class AddDefectRequestModel
+    {
+        public int? wipId { get; set; }
+        public List<Defect> defects { get; set; }
+        public bool? hasValidNumericField { get; set; }
+        public List<PanelDefect> panelDefects { get; set; }
+    }
+    public class PanelDefect
+    {
+        public int? wipId { get; set; }
+        public List<Defect> defects { get; set; }
+        public bool? hasValidNumericField { get; set; }
+    }
+    public class Defect
+    {
+        public int? defectId { get; set; }
+        public string? defectName { get; set; }
+        public string? defectCRD { get; set; }
+        public DateTime defectDateTime { get; set; }
+        public int? defectTermination { get; set; }
+        public string? defectDetail { get; set; }
+        public string? defectComment { get; set; }
+        public string? failureLabel { get; set; }
+        public int? defectQuantity { get; set; }
+    }
+}

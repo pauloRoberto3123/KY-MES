@@ -139,6 +139,28 @@ namespace KY_MES.Services
             }
         }
 
+        public async Task<AddDefectResponseModel> AddDefectAsync(AddDefectRequestModel addDefectRequestModel, string WipId)
+        {
+            try
+            {
+                var addDefectUrl = $"{MesBaseUrl}api-external-api/api/Wips/{WipId}/AddDefects";
+
+                var jsonContent = JsonConvert.SerializeObject(addDefectRequestModel);
+                var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+
+                var response = await _client.PostAsync(addDefectUrl, content);
+                response.EnsureSuccessStatusCode();
+
+                var responseBody = await response.Content.ReadAsStringAsync();
+                var responseModel = JsonConvert.DeserializeObject<AddDefectResponseModel>(responseBody);
+                return responseModel;
+            }
+            catch(Exception ex)
+            {
+                throw new Exception($"Erro ao executar AddDefect. Mensagem: {ex.Message}");
+            }
+        }
+
         public async Task<CompleteWipResponseModel> CompleteWipPassAsync(CompleteWipPassRequestModel completWipRequestModel, string WipId)
         {
             try

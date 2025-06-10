@@ -47,8 +47,9 @@ namespace KY_MES.Controllers
             }
 
             var completeWipResponse = sPIInput.Inspection.Result.Contains("NG")
-                ? await _mESService.CompleteWipFailAsync(utils.ToCompleteWipFail(sPIInput, getWipResponse), getWipResponse.WipId.ToString())
-                : await _mESService.CompleteWipPassAsync(utils.ToCompleteWipPass(sPIInput, getWipResponse), getWipResponse.WipId.ToString());
+                //? await _mESService.CompleteWipFailAsync(utils.ToCompleteWipFail(sPIInput, getWipResponse), getWipResponse.WipId.ToString())
+                ? await utils.AddDefectToCompleteWip(_mESService.AddDefectAsync(utils.ToAddDefect(sPIInput, getWipResponse), getWipResponse.WipId.ToString()))
+                : await _mESService.CompleteWipPassAsync(utils.ToCompleteWipPass(sPIInput, getWipResponse), "");
 
 
             if (completeWipResponse.Equals(null))
