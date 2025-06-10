@@ -170,7 +170,6 @@ namespace KY_MES.Services
 
                 var completeWipIoTRequestModel = new CompleteWipIoTRequestModel
                 {
-                    WipId = wipId,
                     IsSingleWIPMode = true
                 };
 
