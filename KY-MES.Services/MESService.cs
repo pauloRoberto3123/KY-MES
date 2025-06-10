@@ -153,11 +153,36 @@ namespace KY_MES.Services
 
                 var responseBody = await response.Content.ReadAsStringAsync();
                 var responseModel = JsonConvert.DeserializeObject<AddDefectResponseModel>(responseBody);
+                await CompleteWipIoTAsync(int.Parse(WipId));
                 return responseModel;
             }
             catch(Exception ex)
             {
                 throw new Exception($"Erro ao executar AddDefect. Mensagem: {ex.Message}");
+            }
+        }
+
+        public async Task CompleteWipIoTAsync(int wipId)
+        {
+            try
+            {
+                var completeWipIoTUrl = $"{MesBaseUrl}api/Wips/{wipId}/complete";
+
+                var completeWipIoTRequestModel = new CompleteWipIoTRequestModel
+                {
+                    WipId = wipId,
+                    IsSingleWIPMode = true
+                };
+
+                var jsonContent = JsonConvert.SerializeObject(completeWipIoTRequestModel);
+                var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+
+                var response = await _client.PostAsync(completeWipIoTUrl, content);
+                response.EnsureSuccessStatusCode();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Erro ao executar o completeWipIoT. Mensagem: {ex.Message}");
             }
         }
 
