@@ -46,52 +46,52 @@ namespace KY_MES.Controllers
                 throw new Exception("start Wip failed");
             }
 
-            var completeWipResponse = sPIInput.Inspection.Result.Contains("NG")
-                //? await _mESService.CompleteWipFailAsync(utils.ToCompleteWipFail(sPIInput, getWipResponse), getWipResponse.WipId.ToString())
-                ? await utils.AddDefectToCompleteWip(_mESService.AddDefectAsync(utils.ToAddDefect(sPIInput, getWipResponse), getWipResponse.WipId.ToString()))
-                : await _mESService.CompleteWipPassAsync(utils.ToCompleteWipPass(sPIInput, getWipResponse), "");
+            //var completeWipResponse = sPIInput.Inspection.Result.Contains("NG")
+            //    //? await _mESService.CompleteWipFailAsync(utils.ToCompleteWipFail(sPIInput, getWipResponse), getWipResponse.WipId.ToString())
+            //    ? await utils.AddDefectToCompleteWip(_mESService.AddDefectAsync(utils.ToAddDefect(sPIInput, getWipResponse), getWipResponse.WipId.ToString()))
+            //    : await _mESService.CompleteWipPassAsync(utils.ToCompleteWipPass(sPIInput, getWipResponse), "");
 
             //At request of Louise and Elson
             //Added logic that retries adding defects up to 10 times if it fails, with a slight delay between attempts.
 
-            //CompleteWipResponseModel? completeWipResponse = null;
+            CompleteWipResponseModel? completeWipResponse = null;
 
-            //Task.Delay(2000);
+            Task.Delay(2000);
 
-            //if (sPIInput.Inspection.Result.Contains("NG"))
-            //{
-            //    int retryCount = 0;
-            //    int maxRetries = 10; // Prevent infinite loop
+            if (sPIInput.Inspection.Result.Contains("NG"))
+            {
+                int retryCount = 0;
+                int maxRetries = 10; // Prevent infinite loop
 
-            //    do
-            //    {
-            //        try
-            //        {
-            //            completeWipResponse = await utils.AddDefectToCompleteWip(
-            //                _mESService.AddDefectAsync(
-            //                    utils.ToAddDefect(sPIInput, getWipResponse),
-            //                    getWipResponse.WipId.ToString()
-            //                )
-            //            );
-            //        }
-            //        catch (Exception ex)
-            //        {
-            //            retryCount++;
-            //            if (retryCount >= maxRetries)
-            //            {
-            //                throw new Exception($"Failed to add defect after {maxRetries} retries.", ex);
-            //            }
-            //            await Task.Delay(500); // Add slight delay before retrying
-            //        }
-            //    }
-            //    while (completeWipResponse == null && retryCount < maxRetries);
-            //}
-            //else
-            //{
-            //    completeWipResponse = await _mESService.CompleteWipPassAsync(
-            //        utils.ToCompleteWipPass(sPIInput, getWipResponse), ""
-            //    );
-            //}
+                do
+                {
+                    try
+                    {
+                        completeWipResponse = await utils.AddDefectToCompleteWip(
+                            _mESService.AddDefectAsync(
+                                utils.ToAddDefect(sPIInput, getWipResponse),
+                                getWipResponse.WipId.ToString()
+                            )
+                        );
+                    }
+                    catch (Exception ex)
+                    {
+                        retryCount++;
+                        if (retryCount >= maxRetries)
+                        {
+                            throw new Exception($"Failed to add defect after {maxRetries} retries.", ex);
+                        }
+                        await Task.Delay(500); // Add slight delay before retrying
+                    }
+                }
+                while (completeWipResponse == null && retryCount < maxRetries);
+            }
+            else
+            {
+                completeWipResponse = await _mESService.CompleteWipPassAsync(
+                    utils.ToCompleteWipPass(sPIInput, getWipResponse), getWipResponse.WipId.ToString()
+                );
+            }
 
             if (completeWipResponse.Equals(null))
             {
