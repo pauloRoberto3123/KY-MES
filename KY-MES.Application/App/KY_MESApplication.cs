@@ -56,6 +56,8 @@ namespace KY_MES.Controllers
 
             CompleteWipResponseModel? completeWipResponse = null;
 
+            Task.Delay(2000);
+
             if (sPIInput.Inspection.Result.Contains("NG"))
             {
                 int retryCount = 0;
