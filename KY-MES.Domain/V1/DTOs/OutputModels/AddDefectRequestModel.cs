@@ -22,7 +22,7 @@ namespace KY_MES.Domain.V1.DTOs.OutputModels
     }
     public class Defect
     {
-        public int? defectId { get; set; }
+        public string? defectId { get; set; }
         public string? defectName { get; set; }
         public string? defectCRD { get; set; }
         public DateTime defectDateTime { get; set; }

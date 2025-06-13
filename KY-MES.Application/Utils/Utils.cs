@@ -108,15 +108,9 @@ namespace KY_MES.Application.Utils
                     {
                         defects.Add(new Domain.V1.DTOs.OutputModels.Defect
                         {
-                            defectId = null,
+                            defectId = "",
                             defectName = defect.Review,
-                            defectCRD = defect.Comp,
-                            defectDateTime = DateTime.Now,
-                            defectTermination = null,
-                            defectDetail = null,
-                            defectComment = null,
-                            failureLabel = null,
-                            defectQuantity = null,
+                            defectCRD = defect.Comp
                         });
                     }
 
