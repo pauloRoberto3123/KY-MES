@@ -97,16 +97,16 @@ namespace KY_MES.Application.Utils
 
         public AddDefectRequestModel ToAddDefect(SPIInputModel spi, GetWipIdBySerialNumberResponseModels getWip)
         {
-            List<Domain.V1.DTOs.OutputModels.Defect> defects = new List<Domain.V1.DTOs.OutputModels.Defect>();
             List<PanelDefect> panelDefects = new List<PanelDefect>();
 
             foreach (var board in spi.Board)
             {
+                List<Domain.V1.DTOs.OutputModels.Defect> defectsByBoard = new List<Domain.V1.DTOs.OutputModels.Defect>();
                 if (board.Result.Contains("NG"))
                 {
                     foreach (var defect in board.Defects)
                     {
-                        defects.Add(new Domain.V1.DTOs.OutputModels.Defect
+                        defectsByBoard.Add(new Domain.V1.DTOs.OutputModels.Defect
                         {
                             defectId = "",
                             defectName = defect.Review,
@@ -121,7 +121,7 @@ namespace KY_MES.Application.Utils
                     panelDefects.Add(new PanelDefect
                     {
                         wipId = matchingWipId,
-                        defects = defects,
+                        defects = defectsByBoard,
                         hasValidNumericField = true // Assuming no numeric fields are present
                     });
                 }
@@ -130,7 +130,7 @@ namespace KY_MES.Application.Utils
             return new AddDefectRequestModel
             {
                 wipId = getWip.WipId,
-                defects = defects,
+                defects = [],
                 hasValidNumericField = true, // Assuming no numeric fields are present
                 panelDefects = panelDefects
             };
