@@ -49,7 +49,7 @@ namespace KY_MES.Controllers
             //var completeWipResponse = sPIInput.Inspection.Result.Contains("NG")
             //    //? await _mESService.CompleteWipFailAsync(utils.ToCompleteWipFail(sPIInput, getWipResponse), getWipResponse.WipId.ToString())
             //    ? await utils.AddDefectToCompleteWip(_mESService.AddDefectAsync(utils.ToAddDefect(sPIInput, getWipResponse), getWipResponse.WipId.ToString()))
-            //    : await _mESService.CompleteWipPassAsync(utils.ToCompleteWipPass(sPIInput, getWipResponse), "");
+            //    : await _mESService.CompleteWipPassAsync(utils.ToCompleteWipPass(sPIInput, getWipResponse), getWipResponse.WipId.ToString());
 
             //At request of Louise and Elson
             //Added logic that retries adding defects up to 10 times if it fails, with a slight delay between attempts.

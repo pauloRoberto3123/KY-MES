@@ -124,7 +124,7 @@ namespace KY_MES.Application.Utils
                     {
                         wipId = getWip.WipId,
                         defects = defects,
-                        hasValidNumericField = false // Assuming no numeric fields are present
+                        hasValidNumericField = true // Assuming no numeric fields are present
                     });
                 }
             }
@@ -133,7 +133,7 @@ namespace KY_MES.Application.Utils
             {
                 wipId = getWip.WipId,
                 defects = defects,
-                hasValidNumericField = false, // Assuming no numeric fields are present
+                hasValidNumericField = true, // Assuming no numeric fields are present
                 panelDefects = panelDefects
             };
         }
