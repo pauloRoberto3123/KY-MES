@@ -113,10 +113,14 @@ namespace KY_MES.Application.Utils
                             defectCRD = defect.Comp
                         });
                     }
+                    var matchingWipId = (from panelWips
+                                         in getWip.Panel.PanelWips
+                                         where board.Array == panelWips.PanelPosition
+                                         select panelWips.WipId).FirstOrDefault().GetValueOrDefault();
 
                     panelDefects.Add(new PanelDefect
                     {
-                        wipId = getWip.WipId,
+                        wipId = matchingWipId,
                         defects = defects,
                         hasValidNumericField = true // Assuming no numeric fields are present
                     });
