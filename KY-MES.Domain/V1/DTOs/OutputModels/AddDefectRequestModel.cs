@@ -25,11 +25,5 @@ namespace KY_MES.Domain.V1.DTOs.OutputModels
         public string? defectId { get; set; }
         public string? defectName { get; set; }
         public string? defectCRD { get; set; }
-        public DateTime defectDateTime { get; set; }
-        public int? defectTermination { get; set; }
-        public string? defectDetail { get; set; }
-        public string? defectComment { get; set; }
-        public string? failureLabel { get; set; }
-        public int? defectQuantity { get; set; }
     }
 }
