@@ -2,13 +2,9 @@
 using KY_MES.Domain.V1.DTOs.OutputModels;
 using KY_MES.Services.DomainServices.Interfaces;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Http.Headers;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace KY_MES.Services
 {
@@ -152,9 +148,9 @@ namespace KY_MES.Services
                 response.EnsureSuccessStatusCode();
 
                 var responseBody = await response.Content.ReadAsStringAsync();
-                var responseModel = JsonConvert.DeserializeObject<AddDefectResponseModel>(responseBody);
+                var responseModel = JsonConvert.DeserializeObject<List<AddDefectResponseModel>>(responseBody);
                 await CompleteWipIoTAsync(int.Parse(WipId));
-                return responseModel;
+                return responseModel.FirstOrDefault();
             }
             catch(Exception ex)
             {

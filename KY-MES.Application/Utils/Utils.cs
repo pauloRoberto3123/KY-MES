@@ -139,7 +139,7 @@ namespace KY_MES.Application.Utils
         public async Task<CompleteWipResponseModel> AddDefectToCompleteWip(Task<AddDefectResponseModel> addDefectResponseTask)
         {
             var addDefectResponseAwiated = await addDefectResponseTask;
-            var addDefectResponse = addDefectResponseAwiated.wipResponses.FirstOrDefault() ?? throw new Exception("AddDefectResponse is null");
+            var addDefectResponse = addDefectResponseAwiated ?? throw new Exception("AddDefectResponse is null");
 
             return new CompleteWipResponseModel
             {
