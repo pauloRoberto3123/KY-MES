@@ -79,7 +79,7 @@ namespace KY_MES.Controllers
                         retryCount++;
                         if (retryCount >= maxRetries)
                         {
-                            throw new Exception($"Failed to add defect after {maxRetries} retries.", ex);
+                            throw new Exception($"Failed to add defect after {maxRetries} retries. Message: {ex.Message}");
                         }
                         await Task.Delay(500); // Add slight delay before retrying
                     }
