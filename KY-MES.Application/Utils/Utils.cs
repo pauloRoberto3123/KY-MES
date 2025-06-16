@@ -130,6 +130,7 @@ namespace KY_MES.Application.Utils
             return new AddDefectRequestModel
             {
                 wipId = getWip.WipId,
+                wipId = 0,
                 defects = [],
                 hasValidNumericField = true, // Assuming no numeric fields are present
                 panelDefects = panelDefects
@@ -138,37 +139,39 @@ namespace KY_MES.Application.Utils
 
         public async Task<CompleteWipResponseModel> AddDefectToCompleteWip(Task<AddDefectResponseModel> addDefectResponseTask)
         {
-            var addDefectResponseAwiated = await addDefectResponseTask;
-            var addDefectResponse = addDefectResponseAwiated ?? throw new Exception("AddDefectResponse is null");
+            //var addDefectResponseAwiated = await addDefectResponseTask;
+            //var addDefectResponse = addDefectResponseAwiated ?? throw new Exception("AddDefectResponse is null");
 
-            return new CompleteWipResponseModel
-            {
-                WipInQueueRouteSteps = new List<WipInQueueRouteStep>
-                {
-                    new WipInQueueRouteStep
-                    {
-                        SerialNumber = addDefectResponse.Id.ToString(),
-                        InQueueRouteStep = new List<InQueueRouteStep>
-                        {
-                            new InQueueRouteStep
-                            {
-                                RouteStepId = addDefectResponse.Id,
-                                RouteStepName = addDefectResponse.MaterialName
-                            }
-                        }
-                    }
-                },
-                ResponseMessages = new List<string>
-                {
-                    addDefectResponse.Status,
-                    addDefectResponse.PassStatus
-                },
-                Document = new Document
-                {
-                    Model = new List<object> { addDefectResponse.MaterialName },
-                    ErrorMessage = addDefectResponse.Status
-                }
-            };
+            //return new CompleteWipResponseModel
+            //{
+            //    WipInQueueRouteSteps = new List<WipInQueueRouteStep>
+            //    {
+            //        new WipInQueueRouteStep
+            //        {
+            //            SerialNumber = addDefectResponse.Id.ToString(),
+            //            InQueueRouteStep = new List<InQueueRouteStep>
+            //            {
+            //                new InQueueRouteStep
+            //                {
+            //                    RouteStepId = addDefectResponse.Id,
+            //                    RouteStepName = addDefectResponse.MaterialName
+            //                }
+            //            }
+            //        }
+            //    },
+            //    ResponseMessages = new List<string>
+            //    {
+            //        addDefectResponse.Status,
+            //        addDefectResponse.PassStatus
+            //    },
+            //    Document = new Document
+            //    {
+            //        Model = new List<object> { addDefectResponse.MaterialName },
+            //        ErrorMessage = addDefectResponse.Status
+            //    }
+            //};
+
+            return new CompleteWipResponseModel();
         }
 
 

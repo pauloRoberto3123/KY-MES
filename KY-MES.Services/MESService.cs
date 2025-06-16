@@ -147,10 +147,11 @@ namespace KY_MES.Services
                 var response = await _client.PostAsync(addDefectUrl, content);
                 response.EnsureSuccessStatusCode();
 
-                var responseBody = await response.Content.ReadAsStringAsync();
-                var responseModel = JsonConvert.DeserializeObject<List<AddDefectResponseModel>>(responseBody);
+                //var responseBody = await response.Content.ReadAsStringAsync();
+                //var responseModel = JsonConvert.DeserializeObject<List<AddDefectResponseModel>>(responseBody);
                 await CompleteWipIoTAsync(int.Parse(WipId));
-                return responseModel.FirstOrDefault();
+                //return responseModel.FirstOrDefault();
+                return new AddDefectResponseModel();
             }
             catch(Exception ex)
             {
