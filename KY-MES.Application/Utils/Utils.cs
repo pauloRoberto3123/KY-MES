@@ -130,7 +130,6 @@ namespace KY_MES.Application.Utils
             return new AddDefectRequestModel
             {
                 wipId = getWip.WipId,
-                wipId = 0,
                 defects = [],
                 hasValidNumericField = true, // Assuming no numeric fields are present
                 panelDefects = panelDefects
