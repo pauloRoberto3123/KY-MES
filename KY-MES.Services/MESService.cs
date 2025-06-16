@@ -135,7 +135,7 @@ namespace KY_MES.Services
             }
         }
 
-        public async Task<AddDefectResponseModel> AddDefectAsync(AddDefectRequestModel addDefectRequestModel, string WipId)
+        public async Task<AddDefectResponseModel> AddDefectAsync(AddDefectRequestModel addDefectRequestModel, int WipId)
         {
             try
             {
@@ -149,7 +149,7 @@ namespace KY_MES.Services
 
                 //var responseBody = await response.Content.ReadAsStringAsync();
                 //var responseModel = JsonConvert.DeserializeObject<List<AddDefectResponseModel>>(responseBody);
-                await CompleteWipIoTAsync(int.Parse(WipId));
+                await CompleteWipIoTAsync(WipId);
                 //return responseModel.FirstOrDefault();
                 return new AddDefectResponseModel();
             }
@@ -163,7 +163,7 @@ namespace KY_MES.Services
         {
             try
             {
-                var completeWipIoTUrl = $"{MesBaseUrl}api/Wips/{wipId}/complete";
+                var completeWipIoTUrl = $"{MesBaseUrl}api-external-api/api/Wips/{wipId}/complete";
 
                 var completeWipIoTRequestModel = new CompleteWipIoTRequestModel
                 {

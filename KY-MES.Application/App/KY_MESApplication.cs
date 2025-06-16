@@ -70,7 +70,7 @@ namespace KY_MES.Controllers
                         completeWipResponse = await utils.AddDefectToCompleteWip(
                             _mESService.AddDefectAsync(
                                 utils.ToAddDefect(sPIInput, getWipResponse),
-                                getWipResponse.WipId.ToString()
+                                getWipResponse.WipId
                             )
                         );
                     }
