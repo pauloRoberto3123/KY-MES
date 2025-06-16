@@ -167,7 +167,7 @@ namespace KY_MES.Services
 
                 var completeWipIoTRequestModel = new CompleteWipIoTRequestModel
                 {
-                    IsSingleWIPMode = true
+                    WipId = wipId,
                 };
 
                 var jsonContent = JsonConvert.SerializeObject(completeWipIoTRequestModel);
