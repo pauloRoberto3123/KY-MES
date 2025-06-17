@@ -25,5 +25,6 @@ namespace KY_MES.Domain.V1.DTOs.OutputModels
         public string? defectId { get; set; }
         public string? defectName { get; set; }
         public string? defectCRD { get; set; }
+        public string? defectComment { get; set; }
     }
 }
