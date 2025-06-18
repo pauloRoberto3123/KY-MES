@@ -110,10 +110,10 @@ namespace KY_MES.Application.Utils
                         {
                             //Original
                             //defectId = "",
-                            //defectName = defect.Review,
+                            //defectName = defect.Defect,
                             //defectCRD = defect.Comp
                             defectId = "",
-                            defectName = defect.Review,
+                            defectName = defect.Defect,
                             defectCRD = "HALBIM",
                             defectComment = defect.Comp
                         });

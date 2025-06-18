@@ -29,10 +29,10 @@ namespace KY_MES.Domain.V1.DTOs.InputModels
         public string? Result { get; set; }
 
         [JsonProperty("Defects")]
-        public List<Defect>? Defects { get; set; }
+        public List<Defects>? Defects { get; set; }
     }
 
-    public partial class Defect
+    public partial class Defects
     {
         [JsonProperty("Comp")]
         public string? Comp { get; set; }
@@ -41,7 +41,7 @@ namespace KY_MES.Domain.V1.DTOs.InputModels
         public string? Part { get; set; }
 
         [JsonProperty("Defect")]
-        public string? DefectDescription{ get; set; }
+        public string? Defect{ get; set; }
 
         [JsonProperty("Review")]
         public string? Review { get; set; }
